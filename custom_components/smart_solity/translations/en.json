@@ -1,0 +1,26 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect Smart Solity",
+        "description": "Sign in with the same account used by the Smart Solity app. Your password is not stored.",
+        "data": {"email": "Email", "password": "Password"}
+      },
+      "reauth_confirm": {
+        "title": "Reconnect Smart Solity",
+        "description": "Enter your Smart Solity password to renew the connection.",
+        "data": {"email": "Email", "password": "Password"}
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid email or password",
+      "no_devices": "No registered door locks were found"
+    },
+    "abort": {
+      "already_configured": "This Smart Solity account is already configured",
+      "reauth_successful": "Authentication was renewed"
+    }
+  },
+  "entity": {"sensor": {"battery": {"name": "Battery"}}}
+}

@@ -1,0 +1,145 @@
+get_users:
+  name: Get users
+  description: Returns users and credential types registered for a Smart Solity lock. Secret PIN values are removed.
+  fields:
+    device_id:
+      name: Door lock
+      required: true
+      selector:
+        device:
+          integration: smart_solity
+
+invite_user:
+  name: Invite user
+  description: Sends a Smart Solity family invitation to a phone number.
+  fields:
+    device_id:
+      name: Door lock
+      required: true
+      selector:
+        device:
+          integration: smart_solity
+    name:
+      name: Name
+      required: true
+      selector:
+        text:
+    phone_number:
+      name: Phone number
+      required: true
+      selector:
+        text:
+          type: tel
+    role:
+      name: Role
+      required: true
+      default: member
+      selector:
+        select:
+          options:
+            - label: Manager
+              value: manager
+            - label: Member
+              value: member
+
+create_guest_pin:
+  name: Create guest PIN
+  description: Creates a 4-12 digit scheduled, weekly, or one-time visitor PIN. The PIN is sent to Smart Solity but is not stored by the integration.
+  fields:
+    device_id:
+      name: Door lock
+      required: true
+      selector:
+        device:
+          integration: smart_solity
+    pin:
+      name: PIN
+      required: true
+      selector:
+        text:
+          type: password
+    guest_name:
+      name: Guest name
+      required: true
+      selector:
+        text:
+    phone_number:
+      name: Phone number
+      required: true
+      selector:
+        text:
+          type: tel
+    access_type:
+      name: Access type
+      required: true
+      default: date_range
+      selector:
+        select:
+          options:
+            - label: Date range
+              value: date_range
+            - label: Weekly schedule
+              value: weekly
+            - label: One time
+              value: one_time
+    start_date:
+      name: Start date
+      required: true
+      selector:
+        date:
+    end_date:
+      name: End date
+      required: true
+      selector:
+        date:
+    start_time:
+      name: Start time
+      required: true
+      selector:
+        time:
+    end_time:
+      name: End time
+      required: true
+      selector:
+        time:
+    weekdays:
+      name: Weekdays
+      description: Used only for a weekly schedule.
+      default: [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+      selector:
+        select:
+          multiple: true
+          options:
+            - label: Monday
+              value: monday
+            - label: Tuesday
+              value: tuesday
+            - label: Wednesday
+              value: wednesday
+            - label: Thursday
+              value: thursday
+            - label: Friday
+              value: friday
+            - label: Saturday
+              value: saturday
+            - label: Sunday
+              value: sunday
+
+get_access_log:
+  name: Get access log
+  description: Returns recent lock, unlock, credential, and alarm events from Smart Solity.
+  fields:
+    device_id:
+      name: Door lock
+      required: true
+      selector:
+        device:
+          integration: smart_solity
+    limit:
+      name: Maximum events
+      default: 20
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: box

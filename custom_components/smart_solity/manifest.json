@@ -1,0 +1,13 @@
+{
+  "domain": "smart_solity",
+  "name": "Smart Solity",
+  "codeowners": ["@mk0000001"],
+  "config_flow": true,
+  "documentation": "https://github.com/mk0000001/ha-smart-solity",
+  "issue_tracker": "https://github.com/mk0000001/ha-smart-solity/issues",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.2.2"
+}

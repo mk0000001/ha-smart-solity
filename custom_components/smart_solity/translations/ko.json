@@ -1,0 +1,26 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Smart Solity 연결",
+        "description": "Smart Solity 앱에서 사용하는 계정으로 로그인하세요. 비밀번호는 저장하지 않습니다.",
+        "data": {"email": "이메일", "password": "비밀번호"}
+      },
+      "reauth_confirm": {
+        "title": "Smart Solity 다시 연결",
+        "description": "연결을 갱신하려면 Smart Solity 비밀번호를 입력하세요.",
+        "data": {"email": "이메일", "password": "비밀번호"}
+      }
+    },
+    "error": {
+      "cannot_connect": "연결할 수 없습니다",
+      "invalid_auth": "이메일 또는 비밀번호가 올바르지 않습니다",
+      "no_devices": "등록된 도어록을 찾지 못했습니다"
+    },
+    "abort": {
+      "already_configured": "이미 등록된 Smart Solity 계정입니다",
+      "reauth_successful": "인증을 갱신했습니다"
+    }
+  },
+  "entity": {"sensor": {"battery": {"name": "배터리"}}}
+}
