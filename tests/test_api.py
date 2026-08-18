@@ -184,6 +184,44 @@ class SmartSolityApiTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(session.calls[1][0], "POST")
         self.assertTrue(session.calls[1][1].endswith("/api_v2/login/reissue"))
 
+    async def test_startup_refresh_reissues_expired_tokens(self) -> None:
+        session = FakeSession(
+            [
+                FakeResponse(401, {}),
+                response(
+                    {
+                        "loginResult": 0,
+                        "token": "renewed-token",
+                        "tokenPwd": "renewed-secret",
+                        "memberInfo": {},
+                    }
+                ),
+                response({"loginResult": 0}),
+            ]
+        )
+        stored: list[tuple[str, str]] = []
+
+        async def store_tokens(token: str, token_password: str) -> None:
+            stored.append((token, token_password))
+
+        client = api.SmartSolityClient(
+            session,
+            token="expired-token",
+            token_password="expired-secret",
+            phone_token="local-device-id",
+            email="user@example.com",
+            member_name="Test user",
+            token_callback=store_tokens,
+        )
+
+        await asyncio.wait_for(client.async_refresh_tokens(), timeout=1)
+
+        self.assertEqual(
+            [call[1].rsplit("/api_v2", 1)[-1] for call in session.calls],
+            ["/login", "/login/reissue", "/login"],
+        )
+        self.assertEqual(stored, [("renewed-token", "renewed-secret")])
+
     async def test_family_invite_matches_mobile_app_payload(self) -> None:
         session = FakeSession([response({"inviteReturnList": []})])
         client = api.SmartSolityClient(

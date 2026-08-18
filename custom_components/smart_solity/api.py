@@ -100,14 +100,12 @@ class SmartSolityClient:
         return contents
 
     async def async_refresh_tokens(self) -> None:
-        """Rotate the token pair as the official app does at startup."""
-        async with self._auth_lock:
-            await self._request(
-                "PUT",
-                "/api_v2/login",
-                json={"appSource": APP_SOURCE, "lang": LANGUAGE},
-                retry_auth=False,
-            )
+        """Rotate tokens, reissuing an expired session before retrying."""
+        await self._request(
+            "PUT",
+            "/api_v2/login",
+            json={"appSource": APP_SOURCE, "lang": LANGUAGE},
+        )
 
     async def async_get_devices(self) -> dict[str, SmartSolityDevice]:
         """Return all door locks registered to the account."""
